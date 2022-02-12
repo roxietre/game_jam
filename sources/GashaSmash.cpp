@@ -5,10 +5,9 @@
 ** main
 */
 
-#include <SFML/Graphics.hpp>
-// #include  "Zelda.hpp"
-#include <SFML/Window/Window.hpp>
+
 #include <iostream>
+#include "GashaSmash.hpp"
 
 void create_sprite(std::string img, sf::RenderWindow &window)
 {
@@ -29,55 +28,54 @@ void create_sprite(std::string img, sf::RenderWindow &window)
     window.draw(sprite);
 }
 
-void mainMenu(sf::RenderWindow &window, sf::Event &event)
+void mainMenu(GashaSmash &core)
 {
     while (1) {
-        window.clear();
+        core.window->clear();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             break;
-        while (window.pollEvent(event))
+        while (core.window->pollEvent(core.event))
         {
-            if (event.type == sf::Event::Closed) {
-                window.close();
+            if (core.event.type == sf::Event::Closed) {
+                core.window->close();
                 return;
             }
         }
-        window.display();
+        core.window->display();
     }
+}
+
+void mainScreen(GashaSmash &core)
+{
+    sf::RectangleShape rectangle(sf::Vector2f(440, 45));
+    if (!core.font.loadFromFile("Super Smash Bros Ultimate/Others/font.ttf"))
+        return;
+    sf::Text text("G  A  S  H  A", core.font, 45);
+    text.setFillColor(sf::Color::Black);
+    core.window->clear();
+    create_sprite("Super Smash Bros Ultimate/Others/Backgroud_Smash.png", *core.window);
+    rectangle.setPosition(core.window->getSize().x / 2 - 220, core.window->getSize().y - 100);
+    core.window->draw(rectangle);
+    text.setPosition(core.window->getSize().x / 2 - 150, core.window->getSize().y - 100);
+    core.window->draw(text);
 }
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "GashaSmash");
+    
+    GashaSmash core;
 
-
-    while (window.isOpen())
+    while (core.window->isOpen())
     {
-        sf::Event event;
-        sf::Font font;
-        sf::RectangleShape rectangle(sf::Vector2f(440, 45));
-
-        while (window.pollEvent(event))
+        while (core.window->pollEvent(core.event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            if (core.event.type == sf::Event::Closed)
+                core.window->close();
         }
-        if (!font.loadFromFile("Super Smash Bros Ultimate/Others/font.ttf"))
-            return EXIT_FAILURE;
-
-        sf::Text text("G  A  S  H  A", font, 45);
-        text.setFillColor(sf::Color::Black);
-
-        window.clear();
-        create_sprite("Super Smash Bros Ultimate/Others/Backgroud_Smash.png", window);
-        rectangle.setPosition(window.getSize().x / 2 - 220, window.getSize().y - 100);
-        window.draw(rectangle);
-
-        text.setPosition(window.getSize().x / 2 - 150, window.getSize().y - 100);
-        window.draw(text);
+        mainScreen(core);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-            mainMenu(window, event);
-        window.display();
+            mainMenu(core);
+        core.window->display();
     }
 
     return 0;
