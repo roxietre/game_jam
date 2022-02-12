@@ -6,25 +6,24 @@
 */
 
 #include <SFML/Graphics.hpp>
+#include  "Zelda.hpp"
+#include <SFML/Window/Window.hpp>
 #include <iostream>
 
-sf::Sprite create_sprite(std::string img)
+void create_sprite(std::string img, sf::RenderWindow &window)
 {
-    sf::Texture texture1;
+    sf::Texture texture;
+    sf::Sprite sprite;
 
-    if (!texture1.loadFromFile(img))
-    {
-        std::cerr << "Error while loading texture" << std::endl;
-    }
-    //texture1.setSmooth(true);
-    sf::Sprite sprite(texture1);
-    return sprite;
+    if (!texture.loadFromFile(img))
+        return;
+    sprite.setTexture(texture);
+    window.draw(sprite);
 }
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "GashaSmash");
-    sf::Sprite bg = create_sprite("Super Smash Bros Ultimate/Fighter Portraits/Zelda/chara_0_zelda_01.png");
 
 
     while (window.isOpen())
@@ -36,7 +35,12 @@ int main()
                 window.close();
         }
         window.clear();
-        window.draw(bg);
+        create_sprite("Super Smash Bros Ultimate/Others/Backgroud_Smash.png", window);
+        sf::Font font;
+        if (!font.loadFromFile("Super Smash Bros Ultimate/Others/font.ttf"))
+            return EXIT_FAILURE;
+        sf::Text text("GASHA", font, 50);
+        window.draw(text);
         window.display();
     }
 
