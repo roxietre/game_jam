@@ -9,7 +9,7 @@
 #include <iostream>
 #include "GashaSmash.hpp"
 
-void create_sprite(std::string img, sf::RenderWindow &window)
+void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y)
 {
     sf::Texture texture;
     sf::Sprite sprite;
@@ -18,13 +18,14 @@ void create_sprite(std::string img, sf::RenderWindow &window)
         return;
 
     sf::Vector2u TextureSize = texture.getSize(); //Get size of texture.
-    sf::Vector2u WindowSize = window.getSize();
 
-    float ScaleX = (float) WindowSize.x / TextureSize.x;
-    float ScaleY = (float) WindowSize.y / TextureSize.y; 
+    float ScaleX = x / (float) TextureSize.x;
+    float ScaleY = y / (float) TextureSize.y; 
 
+    texture.setSmooth(true);
     sprite.setScale(ScaleX, ScaleY);
     sprite.setTexture(texture);
+    sprite.setPosition(new_x, new_y);
     window.draw(sprite);
 }
 
@@ -41,6 +42,11 @@ void mainMenu(GashaSmash &core)
                 return;
             }
         }
+        sf::Vector2u WindowSize = core.window->getSize();
+        create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+        create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
+        create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+        create_sprite("Super Smash Bros Ultimate/Others/item_0_blackball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
         core.window->display();
     }
 }
@@ -53,7 +59,8 @@ void mainScreen(GashaSmash &core)
     sf::Text text("G  A  S  H  A", core.font, 45);
     text.setFillColor(sf::Color::Black);
     core.window->clear();
-    create_sprite("Super Smash Bros Ultimate/Others/Backgroud_Smash.png", *core.window);
+    sf::Vector2u WindowSize = core.window->getSize();
+    create_sprite("Super Smash Bros Ultimate/Others/Backgroud_Smash.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     rectangle.setPosition(core.window->getSize().x / 2 - 220, core.window->getSize().y - 100);
     core.window->draw(rectangle);
     text.setPosition(core.window->getSize().x / 2 - 150, core.window->getSize().y - 100);
