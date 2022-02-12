@@ -31,24 +31,13 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
 
 void mainMenu(GashaSmash &core)
 {
-    while (1) {
-        core.window->clear();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            break;
-        while (core.window->pollEvent(core.event))
-        {
-            if (core.event.type == sf::Event::Closed) {
-                core.window->close();
-                return;
-            }
-        }
-        sf::Vector2u WindowSize = core.window->getSize();
-        create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
-        create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
-        create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
-        create_sprite("Super Smash Bros Ultimate/Others/item_0_blackball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
-        core.window->display();
-    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        core.scene = MSCREEN;
+    sf::Vector2u WindowSize = core.window->getSize();
+    create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/item_0_blackball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
 }
 
 void mainScreen(GashaSmash &core)
@@ -69,9 +58,7 @@ void mainScreen(GashaSmash &core)
 
 int main()
 {
-    
     GashaSmash core;
-
     while (core.window->isOpen())
     {
         while (core.window->pollEvent(core.event))
@@ -79,11 +66,12 @@ int main()
             if (core.event.type == sf::Event::Closed)
                 core.window->close();
         }
-        mainScreen(core);
+        for (int i = 0; i < TABSIZE; ++i)
+            if (scene_tab[i].scene == core.scene)
+                scene_tab[i].ptr_scene(core);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-            mainMenu(core);
+            core.scene = MMENU;
         core.window->display();
     }
-
     return 0;
 }
