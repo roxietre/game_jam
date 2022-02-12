@@ -29,6 +29,23 @@ void create_sprite(std::string img, sf::RenderWindow &window)
     window.draw(sprite);
 }
 
+void mainMenu(sf::RenderWindow &window, sf::Event &event)
+{
+    while (1) {
+        window.clear();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            break;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return;
+            }
+        }
+        window.display();
+    }
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "GashaSmash");
@@ -58,6 +75,8 @@ int main()
 
         text.setPosition(window.getSize().x / 2 - 150, window.getSize().y - 100);
         window.draw(text);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+            mainMenu(window, event);
         window.display();
     }
 
