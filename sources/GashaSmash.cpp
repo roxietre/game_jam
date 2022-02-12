@@ -31,13 +31,29 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
 
 void mainMenu(GashaSmash &core)
 {
+    sf::Text text("SUMMON", core.font, 45);
+    text.setFillColor(sf::Color::Black);
+    sf::Text text2("BATTLE", core.font, 45);
+    text2.setFillColor(sf::Color::Black);
+    sf::Vector2u WindowSize = core.window->getSize();
+    sf::RectangleShape rect1(sf::Vector2f((float) WindowSize.x * .35, 50));
+    sf::RectangleShape rect2(sf::Vector2f((float) WindowSize.x * .35, 50));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MSCREEN;
-    sf::Vector2u WindowSize = core.window->getSize();
     create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
     create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/item_0_assist.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
     create_sprite("Super Smash Bros Ultimate/Others/item_0_blackball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+
+    rect1.setPosition( ((float) WindowSize.x / 2) + 150 , (float) WindowSize.y - 100);
+    core.window->draw(rect1);
+    rect2.setPosition( 150 , (float) WindowSize.y - 100);
+    core.window->draw(rect2);
+    text.setPosition(core.window->getSize().x * .20, core.window->getSize().y - 100);
+    core.window->draw(text);
+    text2.setPosition(core.window->getSize().x * .73, core.window->getSize().y - 100);
+    core.window->draw(text2);
 }
 
 void mainScreen(GashaSmash &core)
