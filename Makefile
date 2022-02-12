@@ -30,11 +30,13 @@ NAME	=	GashaSmash
 
 ##############################################################
 
-CFLAGS	=	-W -Wall -Wextra
+CFLAGS	=	-W -Wall -Wextra -g3
 
 CPPFLAGS	=	-I./includes
 
 TEST_LIB	=	--coverage -lcriterion -lgcov
+
+LIB_SFML	=	-lsfml-graphics -lsfml-window -lsfml-system
 
 ##############################################################
 
@@ -53,7 +55,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ_MAIN)
 	@$(PRNT) -e "\e[0;31m Compiling ${NAME}... \e[0m"
-	$(CC) -o $(NAME) $(OBJ) $(OBJ_MAIN)
+	$(CC) -o $(NAME) $(OBJ) $(OBJ_MAIN) $(CFLAGS) $(LIB_SFML)
 
 make_lib:
 	@$(PRNT) -e "\e[0;31m Making lib $(LIB_DIR)... \e[0m"
