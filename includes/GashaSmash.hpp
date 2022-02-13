@@ -32,11 +32,19 @@ class GashaSmash {
     protected:
     private:
 };
+
+//Scene Part
 void mainScreen(GashaSmash &core);
 void mainMenu(GashaSmash &core);
 void fightMenu(GashaSmash &core);
 void summonMenu(GashaSmash &core);
 
+
+//Fighting part
+bool makeFight(GashaSmash &core);
+
+
+//Struct and Scene tab
 typedef struct scene_s {
     scene_e scene;
     void (*ptr_scene) (GashaSmash &core);
