@@ -22,11 +22,12 @@ class Player {
         std::vector<Champion *> getTeam() {return _team;}
         void addTeam(Champion *chap) {_team.push_back(chap);}
 
+        std::vector<Champion *> _team;
         int getLevel() const {return _level;}
+        void setLevel(int level) {_level = level;}
     private:
         int _stone;
         int _level;
         std::vector<Champion *> _champion;
-        std::vector<Champion *> _team;
 };
 

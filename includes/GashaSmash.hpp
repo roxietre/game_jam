@@ -11,13 +11,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/System/Time.h>
+#include <unistd.h>
 #include "player.hpp"
 #include <map>
 #include <functional>
 #include "champion.hpp"
 #include <algorithm>
+#include <time.h>
 
-enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT};
+enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT, STARTF};
 
 class GashaSmash {
     public:
@@ -32,6 +35,7 @@ class GashaSmash {
         sf::Font font;
         sf::Mouse mouse;
         scene_e scene;
+        std::vector<Champion *> _enemy;
 
         Player player;
         int actual_level;
@@ -47,8 +51,8 @@ void summonMenu(GashaSmash &core);
 void SelectMenu(GashaSmash &core);
 
 //Fighting part
-bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy);
-void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy, int level);
+void makeFight(GashaSmash &core);
+void choseTeam(GashaSmash &core);
 void create_team(Player &player, int champ1, int champ2, int champ3);
 
 //Summon part
@@ -66,7 +70,8 @@ static const scene_t scene_tab[] = {
     {.scene = MMENU, mainMenu},
     {.scene = MFIGHT, fightMenu},
     {.scene = MSUMMON, summonMenu},
-    {.scene = MSELECT, SelectMenu}
+    {.scene = MSELECT, SelectMenu},
+    {.scene = STARTF, makeFight}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);

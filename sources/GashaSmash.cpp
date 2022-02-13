@@ -34,7 +34,14 @@ void SelectMenu(GashaSmash &core)
     std::cout << core.actual_level << std::endl;
     sf::Vector2u WindowSize = core.window->getSize();
     core.window->clear();
+    core._enemy.erase(core._enemy.begin(), core._enemy.end());
     create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+
+    core.player.setChampion(new Champion("link"));
+    core.player.setChampion(new Champion("sonic"));
+    core.player.setChampion(new Champion("trail"));
+    choseTeam(core);
+    core.scene = STARTF;
 }
 
 
@@ -73,8 +80,6 @@ void fightMenu(GashaSmash &core)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MMENU;
-
-    core.window->clear();
 
     create_sprite("Super Smash Bros Ultimate/Others/Backgroun.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     text.setPosition(WindowSize.x * 0.031, 0);
@@ -162,7 +167,6 @@ void fightMenu(GashaSmash &core)
     core.window->draw(text2);
     core.window->draw(rectBoss);
     core.window->draw(textBoss);
-
 }
 
 void summonMenu(GashaSmash &core)
@@ -270,6 +274,7 @@ void mainScreen(GashaSmash &core)
 int main()
 {
     GashaSmash core;
+    srand(time(NULL));
     while (core.window->isOpen())
     {
         while (core.window->pollEvent(core.event))
