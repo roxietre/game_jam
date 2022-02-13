@@ -22,10 +22,10 @@ Champion::Champion(std::string name)
     _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_4_")+name+std::string("_00.png"));
     _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_6_")+name+std::string("_00.png"));
 
-    _attack = rand()%(10-5+1)+5;
+    _attack = rand()%(50-5+1)+50;
     _armor = rand()%(10-5+1)+5;
-    _speed = rand()%(10-5+1)+5;
-    _life = rand()%(10-5+1)+5;
+    _speed = rand()%(80-5+1)+20;
+    _life = rand()%(150-5+1)+100;
     _Maxhp = _life;
     _specialAttack = rand()%(10-5+1)+5;
     _specialArmor = rand()%(10-5+1)+5;
