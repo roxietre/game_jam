@@ -13,13 +13,15 @@
 
 class Player {
     public:
-        Player(): _stone(10) {}
+        Player(): _stone(5),_level(0) {}
         ~Player() {}
         int getStone() {return _stone;}
         void setStone(int stone) {_stone += stone;}
         void setChampion(Champion *chap) {_champion.push_back(chap);}
-        std::vector<Champion *> getChampion(Champion *chap) {return _champion;}
+        std::vector<Champion *> getChampion() {return _champion;}
     private:
         int _stone;
+        int _level;
         std::vector<Champion *> _champion;
 };
+

@@ -49,6 +49,10 @@ void summonMenu(GashaSmash &core)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MMENU;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+        invocation(core.player);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        show_champion(core.player);
     core.window->clear();
     create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);

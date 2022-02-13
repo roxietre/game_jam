@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include "player.hpp"
 #include <map>
 #include <functional>
 
@@ -18,7 +19,7 @@ enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON};
 
 class GashaSmash {
     public:
-        GashaSmash() 
+        GashaSmash()
         {
             window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "GashaSmash");
             scene = MSCREEN;
@@ -29,6 +30,8 @@ class GashaSmash {
         sf::Font font;
         sf::Mouse mouse;
         scene_e scene;
+
+        Player player;
     protected:
     private:
 };
@@ -46,6 +49,9 @@ bool makeFight(GashaSmash &core);
 //Fighting part
 bool makeFight(GashaSmash &core);
 
+//Summon part
+void invocation(Player &player);
+void show_champion(Player &player);
 
 //Struct and Scene tab
 typedef struct scene_s {
