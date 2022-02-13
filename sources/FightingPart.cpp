@@ -44,21 +44,49 @@ void createEnemy(std::vector<Champion *> &enemy, int level)
 
 void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy, int level)
 {
-    createEnemy(enemy, level);
+    std::cout << "try create" << std::endl;
     if (core.player.getChampion().size() < 3)
         return;
+    std::cout << "creating enemy" << std::endl;
+    createEnemy(enemy, level);
+    std::cout << "creating team" << std::endl;
+    create_team(core.player, 0, 1, 2);
+    std::cout << "team created" << std::endl;
+    for (int i = 0; i < 3; ++i) {
+        std::cout << "champ" + i << std::endl;
+        std::cout << core.player.getTeam()[i]->getSpeed() << std::endl;
+    }
+    std::cout << "all done" << std::endl;
+}
+
+void sort( std::vector<Champion *> &list) {
+	int i = 0;
+    Champion *temp;
+
+    for(i = 0; i < list.size(); i++) {
+       for(int j = i+1; j< list.size(); j++)
+       {
+          if(list[j]->getSpeed() < list[i]->getSpeed()) {
+             temp = list[i];
+             list[i] = list[j];
+             list[j] = temp;
+          }
+       }
+    }
 }
 
 bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy)
 {
     while (1) {
         std::cout << "Fight loop" << std::endl;
-        std::sort(enemy.begin(), enemy.end());
-        std::sort(core.player.getTeam().begin(), core.player.getTeam().end());
+        sort(enemy);
+        sort(core.player._team);
+        for (int i = 0; i < 3; ++i)
+            std::cout << core.player.getTeam()[i]->getSpeed() << std::endl;
         if (isDead(enemy))
             return false;
-        //if (isDead(core.player.getTeam()))
-        //    return true;
+        if (isDead(core.player.getTeam()))
+            return true;
     }
     return true;
 }
