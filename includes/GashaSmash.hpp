@@ -43,6 +43,9 @@ void summonMenu(GashaSmash &core);
 //Fighting part
 bool makeFight(GashaSmash &core);
 
+//Fighting part
+bool makeFight(GashaSmash &core);
+
 
 //Struct and Scene tab
 typedef struct scene_s {
