@@ -24,6 +24,7 @@ class Player {
 
         int getLevel() const {return _level;}
         void setSuccess(std::string str) {_success.push_back(str);}
+        void setLevel(int level) {_level = level;}
     private:
         int _stone;
         int _level;

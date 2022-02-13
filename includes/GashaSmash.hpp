@@ -34,6 +34,7 @@ class GashaSmash {
         scene_e scene;
 
         Player player;
+        int actual_level;
     protected:
     private:
 };

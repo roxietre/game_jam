@@ -31,6 +31,7 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
 
 void SelectMenu(GashaSmash &core)
 {
+    std::cout << core.actual_level << std::endl;
     sf::Vector2u WindowSize = core.window->getSize();
     core.window->clear();
     create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
@@ -40,6 +41,7 @@ void SelectMenu(GashaSmash &core)
 void fightMenu(GashaSmash &core)
 {
     sf::Vector2u WindowSize = core.window->getSize();
+    sf::Vector2i m = core.mouse.getPosition(*core.window);
     sf::Text text("1", core.font, 100);
     sf::Text text1("2", core.font, 100);
     sf::Text text2("3", core.font, 100);
@@ -73,11 +75,6 @@ void fightMenu(GashaSmash &core)
         core.scene = MMENU;
 
     core.window->clear();
-    std::vector<Champion *> enemy;
-    std::cout << "Making team" << std::endl;
-    choseTeam(core, enemy, 0);
-    std::cout << "Making fight" << std::endl;
-    makeFight(core, enemy);
 
     create_sprite("Super Smash Bros Ultimate/Others/Backgroun.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     text.setPosition(WindowSize.x * 0.031, 0);
@@ -101,29 +98,56 @@ void fightMenu(GashaSmash &core)
 
     rect.setFillColor(sf::Color::Green);
 
-    if (core.player.getLevel() >= 1)
-        rect1.setFillColor(sf::Color::Green);
-    else
-        rect1.setFillColor(sf::Color::Red);
+    (core.player.getLevel() >= 1) ? rect1.setFillColor(sf::Color::Green) : rect1.setFillColor(sf::Color::Red);
+    (core.player.getLevel() >= 2) ? rect2.setFillColor(sf::Color::Green) : rect2.setFillColor(sf::Color::Red);
+    (core.player.getLevel() >= 3) ? rectBoss.setFillColor(sf::Color::Green) : rectBoss.setFillColor(sf::Color::Red);
 
-    if (core.player.getLevel() >= 2)
-        rect2.setFillColor(sf::Color::Green);
-    else
-        rect2.setFillColor(sf::Color::Red);
-
-    if (core.player.getLevel() == 3)
-        rectBoss.setFillColor(sf::Color::Green);
-    else
-        rectBoss.setFillColor(sf::Color::Red);
-
-
-    sf::Vector2i m = core.mouse.getPosition(*core.window);
     if (m.x >= rect.getPosition().x && m.x <= rect.getPosition().x + rect.getSize().x && m.y >= rect.getPosition().y && m.y <= rect.getPosition().y + rect.getSize().y) 
     {
         text.scale(2, 2);
-        rect.scale(1, 2);
+        rect.scale(2, 2);
+        core.actual_level = 0;
         if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
             core.scene = MSELECT;
+        }
+    }
+    if (m.x >= rect1.getPosition().x && m.x <= rect1.getPosition().x + rect1.getSize().x && m.y >= rect1.getPosition().y && m.y <= rect1.getPosition().y + rect1.getSize().y) 
+    {
+        if (core.player.getLevel() >= 1) {
+            text1.scale(2, 2);
+            rect1.scale(2, 2);
+            core.actual_level = 1;
+            if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+                core.scene = MSELECT;
+            }
+        } else {
+            rect1.setFillColor(sf::Color::Red);
+        }
+    }
+    if (m.x >= rect2.getPosition().x && m.x <= rect2.getPosition().x + rect2.getSize().x && m.y >= rect2.getPosition().y && m.y <= rect2.getPosition().y + rect2.getSize().y) 
+    {
+        if (core.player.getLevel() >= 1) {
+            text2.scale(2, 2);
+            rect2.scale(2, 2);
+            core.actual_level = 2;
+            if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+                core.scene = MSELECT;
+            }
+        } else {
+            rect2.setFillColor(sf::Color::Red);
+        }
+    }
+    if (m.x >= rectBoss.getPosition().x && m.x <= rectBoss.getPosition().x + rectBoss.getSize().x && m.y >= rectBoss.getPosition().y && m.y <= rectBoss.getPosition().y + rectBoss.getSize().y) 
+    {
+        if (core.player.getLevel() >= 1) {
+            textBoss.scale(1.3, 1.3);
+            rectBoss.scale(1.3, 1.3);
+            core.actual_level = 3;
+            if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+                core.scene = MSELECT;
+            }
+        } else {
+            rectBoss.setFillColor(sf::Color::Red);
         }
     }
 
