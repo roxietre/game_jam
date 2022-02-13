@@ -9,7 +9,7 @@
 #include <iostream>
 #include "GashaSmash.hpp"
 
-void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y)
+void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y )
 {
     sf::Texture texture;
     sf::Sprite sprite;
@@ -34,6 +34,38 @@ void fightMenu(GashaSmash &core)
 {
     core.window->clear();
 }
+
+void summonMenu(GashaSmash &core)
+{
+    sf::Vector2u WindowSize = core.window->getSize();
+
+    sf::Text text("SINGLE SUMMON", core.font, 45);
+    text.setFillColor(sf::Color::Black);
+    sf::Text text2("MULTI SUMMON", core.font, 45);
+    text2.setFillColor(sf::Color::Black);
+    
+    sf::RectangleShape rect1(sf::Vector2f((float) WindowSize.x * .35, 50));
+    sf::RectangleShape rect2(sf::Vector2f((float) WindowSize.x * .35, 50));
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        core.scene = MMENU;
+    core.window->clear();
+    create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/item_0_pokeball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
+    create_sprite("Super Smash Bros Ultimate/Others/item_0_masterball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
+
+    rect1.setPosition( ((float) WindowSize.x / 2) + 150 , (float) WindowSize.y - 100);
+    rect2.setPosition( 150 , (float) WindowSize.y - 100);
+    core.window->draw(rect1);
+    core.window->draw(rect2);
+    text.setPosition(core.window->getSize().x * .10, core.window->getSize().y - 100);
+    core.window->draw(text);
+    text2.setPosition(core.window->getSize().x * .60, core.window->getSize().y - 100);
+    core.window->draw(text2);
+}
+
 
 void mainMenu(GashaSmash &core)
 {
@@ -60,6 +92,13 @@ void mainMenu(GashaSmash &core)
         rect1.setScale(sf::Vector2f(rect1.getScale().x * 1.2, rect1.getScale().y * 1.5));
         if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
             core.scene = MFIGHT;
+        }
+    }
+    if (m.x >= 150 && m.x <= WindowSize.x/2 && m.y >= WindowSize.y - 100 && m.y <= WindowSize.y - 100 + 50) {
+        rect2.setPosition(sf::Vector2f(rect2.getPosition().x - 50, rect2.getPosition().y - 20));
+        rect2.setScale(sf::Vector2f(rect2.getScale().x * 1.2, rect2.getScale().y * 1.5));
+        if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+            core.scene = MSUMMON;
         }
     }
     core.window->draw(rect1);

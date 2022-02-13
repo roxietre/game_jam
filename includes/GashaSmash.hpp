@@ -14,7 +14,7 @@
 #include <map>
 #include <functional>
 
-enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT};
+enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON};
 
 class GashaSmash {
     public:
@@ -35,6 +35,7 @@ class GashaSmash {
 void mainScreen(GashaSmash &core);
 void mainMenu(GashaSmash &core);
 void fightMenu(GashaSmash &core);
+void summonMenu(GashaSmash &core);
 
 typedef struct scene_s {
     scene_e scene;
@@ -44,7 +45,8 @@ typedef struct scene_s {
 static const scene_t scene_tab[] = {
     {.scene = MSCREEN, mainScreen},
     {.scene = MMENU, mainMenu},
-    {.scene = MFIGHT, fightMenu}
+    {.scene = MFIGHT, fightMenu},
+    {.scene = MSUMMON, summonMenu}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);
