@@ -26,6 +26,7 @@ Champion::Champion(std::string name)
     _armor = rand()%(10-5+1)+5;
     _speed = rand()%(10-5+1)+5;
     _life = rand()%(10-5+1)+5;
+    _Maxhp = _life;
     _specialAttack = rand()%(10-5+1)+5;
     _specialArmor = rand()%(10-5+1)+5;
 }

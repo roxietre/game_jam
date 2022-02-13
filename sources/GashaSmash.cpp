@@ -35,6 +35,7 @@ void SelectMenu(GashaSmash &core)
     sf::Vector2u WindowSize = core.window->getSize();
     core.window->clear();
     core._enemy.erase(core._enemy.begin(), core._enemy.end());
+    core.player._team.erase(core.player._team.begin(), core.player._team.end());
     create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
 
     core.player.setChampion(new Champion("link"));

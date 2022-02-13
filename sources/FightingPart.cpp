@@ -46,8 +46,12 @@ void choseTeam(GashaSmash &core)
 {
     if (core.player.getChampion().size() < 3)
         return;
+    core.round = 0;
     createEnemy(core._enemy, core.actual_level);
     create_team(core.player, 0, 1, 2);
+    for (int i = 0; i < core.player._team.size(); ++i) {
+        core.player._team[i]->setLife(core.player._team[i]->getMax());
+    }
 }
 
 void sort( std::vector<Champion *> &list) {
@@ -73,14 +77,33 @@ void makeFight(GashaSmash &core)
     sort(core._enemy);
     sort(core.player._team);
 
-
-
+    sleep(2);
+    if (core._enemy[core.round]->getSpeed() > core.player._team[core.round]->getSpeed()) {
+        std::cout << "enemy attack player" << std::endl;
+        core._enemy[core.round]->Attack(core.player._team[core.round]);
+    } else {
+        std::cout << "player attack enemy" << std::endl;
+        core.player._team[core.round]->Attack(core._enemy[core.round]);
+    }
+    if (core._enemy[core.round]->getSpeed() > core.player._team[core.round]->getSpeed()) {
+        std::cout << "player attack enemy" << std::endl;
+        core.player._team[core.round]->Attack(core._enemy[core.round]);
+    } else {
+        std::cout << "enemy attack player" << std::endl;
+        core._enemy[core.round]->Attack(core.player._team[core.round]);
+    }
     if (isDead(core._enemy) == 0) {
+        std::cout << "Player win" << std::endl;
         core.scene = MFIGHT;
         core.player.setStone(core.player.getStone() + 10);
         if (core.actual_level == core.player.getLevel())
             core.player.setLevel(core.player.getLevel() + 1);
     }
-    if (isDead(core.player.getTeam()) == 0)
+    if (isDead(core.player.getTeam()) == 0) {
+        std::cout << "Enemy win" << std::endl;
         core.scene = MFIGHT;
+    }
+    core.round++;
+    if (core.round >= 3)
+        core.round = 0;
 }

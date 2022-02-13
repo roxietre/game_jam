@@ -36,6 +36,7 @@ class GashaSmash {
         sf::Mouse mouse;
         scene_e scene;
         std::vector<Champion *> _enemy;
+        int round;
 
         Player player;
         int actual_level;
