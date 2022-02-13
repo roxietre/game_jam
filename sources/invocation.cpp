@@ -68,3 +68,26 @@ void invocation(Player &player)
         player.setChampion(chap);
     }
 }
+
+void evolution(Player &player)
+{
+    std::vector<Champion *> champ = player.getChampion();
+    int t = rand() %champ.size();
+
+    std::vector<std::string>  old_sprite = champ[t]->getSprit();
+    for (int i = 0; i < old_sprite.size(); i++) {
+        std::string new_sprite = old_sprite[i];
+        new_sprite.replace(new_sprite.find("_00"), 3, "_01");
+        old_sprite[i] = new_sprite;
+    }
+    champ[t]->setSprit(old_sprite);
+    champ[t]->evolution_up(rand()%(10-5+1)+5,rand()%(10-5+1)+5,rand()%(10-5+1)+5,rand()%(10-5+1)+5,rand()%(10-5+1)+5,rand()%(10-5+1)+5);
+}
+
+void create_team(Player &player, int champ1, int champ2, int champ3)
+{
+    std::vector<Champion *> champ = player.getChampion();
+    player.addTeam(champ[champ1]);
+    player.addTeam(champ[champ2]);
+    player.addTeam(champ[champ3]);
+}

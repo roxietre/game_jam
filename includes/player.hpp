@@ -20,6 +20,7 @@ class Player {
         void setChampion(Champion *chap) {_champion.push_back(chap);}
         std::vector<Champion *> getChampion() {return _champion;}
         std::vector<Champion *> getTeam() {return _team;}
+        void addTeam(Champion *chap) {_team.push_back(chap);}
     private:
         int _stone;
         int _level;
