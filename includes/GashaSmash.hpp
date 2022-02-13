@@ -45,8 +45,8 @@ void summonMenu(GashaSmash &core);
 
 
 //Fighting part
-bool makeFight(GashaSmash &core);
-void choseTeam(std::vector<Champion *> &player, std::vector<Champion *> &enemy);
+bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy);
+void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy);
 
 //Summon part
 void invocation(Player &player);

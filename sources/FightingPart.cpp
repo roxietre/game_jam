@@ -7,12 +7,12 @@
 
 #include "GashaSmash.hpp"
 
-void choseTeam(std::vector<Champion *> &player, std::vector<Champion *> &enemy)
+void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy)
 {
-    
+
 }
 
-bool makeFight(std::vector<Champion *> &player, std::vector<Champion *> &enemy)
+bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy)
 {
 
 }
