@@ -11,7 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
-#include <SFML/System/Time.h>
 #include <unistd.h>
 #include "player.hpp"
 #include <map>
