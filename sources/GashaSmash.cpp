@@ -29,6 +29,12 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
     window.draw(sprite);
 }
 
+
+void fightMenu(GashaSmash &core)
+{
+    core.window->clear();
+}
+
 void mainMenu(GashaSmash &core)
 {
     sf::Text text("SUMMON", core.font, 45);
@@ -47,8 +53,16 @@ void mainMenu(GashaSmash &core)
     create_sprite("Super Smash Bros Ultimate/Others/item_0_blackball.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, (float) WindowSize.x / 2, 0);
 
     rect1.setPosition( ((float) WindowSize.x / 2) + 150 , (float) WindowSize.y - 100);
-    core.window->draw(rect1);
     rect2.setPosition( 150 , (float) WindowSize.y - 100);
+    sf::Vector2i m = core.mouse.getPosition(*core.window);
+    if (m.x >= WindowSize.x/2 + 150 && m.x <= WindowSize.x/2 + 150 + WindowSize.x * .35 && m.y >= WindowSize.y - 100 && m.y <= WindowSize.y - 100 + 50) {
+        rect1.setPosition(sf::Vector2f(rect1.getPosition().x - 50, rect1.getPosition().y - 20));
+        rect1.setScale(sf::Vector2f(rect1.getScale().x * 1.2, rect1.getScale().y * 1.5));
+        if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+            core.scene = MFIGHT;
+        }
+    }
+    core.window->draw(rect1);
     core.window->draw(rect2);
     text.setPosition(core.window->getSize().x * .20, core.window->getSize().y - 100);
     core.window->draw(text);

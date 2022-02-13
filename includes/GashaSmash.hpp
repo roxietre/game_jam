@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <map>
 #include <functional>
 
@@ -26,21 +27,24 @@ class GashaSmash {
         sf::RenderWindow *window;
         sf::Event event;
         sf::Font font;
+        sf::Mouse mouse;
         scene_e scene;
     protected:
     private:
 };
-static void mainScreen(GashaSmash &core);
-static void mainMenu(GashaSmash &core);
+void mainScreen(GashaSmash &core);
+void mainMenu(GashaSmash &core);
+void fightMenu(GashaSmash &core);
 
 typedef struct scene_s {
     scene_e scene;
     void (*ptr_scene) (GashaSmash &core);
 } scene_t;
 
-static const scene_t scene_tab[2] = {
+static const scene_t scene_tab[] = {
     {.scene = MSCREEN, mainScreen},
-    {.scene = MMENU, mainMenu}
+    {.scene = MMENU, mainMenu},
+    {.scene = MFIGHT, fightMenu}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);
