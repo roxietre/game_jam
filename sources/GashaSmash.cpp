@@ -33,6 +33,11 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
 void fightMenu(GashaSmash &core)
 {
     core.window->clear();
+    std::vector<Champion *> enemy;
+    std::cout << "Making team" << std::endl;
+    choseTeam(core, enemy, 0);
+    std::cout << "Making fight" << std::endl;
+    makeFight(core, enemy);
 }
 
 void summonMenu(GashaSmash &core)

@@ -15,6 +15,7 @@
 #include <map>
 #include <functional>
 #include "champion.hpp"
+#include <algorithm>
 
 enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON};
 
@@ -46,7 +47,7 @@ void summonMenu(GashaSmash &core);
 
 //Fighting part
 bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy);
-void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy);
+void choseTeam(GashaSmash &core, std::vector<Champion *> &enemy, int level);
 
 //Summon part
 void invocation(Player &player);

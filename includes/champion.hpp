@@ -16,7 +16,11 @@ class Champion
         ~Champion() {};
         void Attack(Champion *chap) {chap->_life -= this->_attack - chap->_armor;};
         void SpecialAttack(Champion *chap) {chap->_life -= this->_specialAttack - chap->_specialArmor;};
-
+        bool operator<(Champion &other) const {
+            if (this->_speed < other.getSpeed())
+                return true;
+            return false;
+        }
         int getAttack() {return _attack;};
         int getSpeed() {return _speed;};
         int getSpecialAttack() {return _specialAttack;};
