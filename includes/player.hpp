@@ -11,13 +11,11 @@
 #include "champion.hpp"
 #include <vector>
 
-struct  success_s
+typedef struct  success_s
 {
     bool _is;
     std::string _message;
 }success_t;
-
-
 
 class Player {
     public:
@@ -38,6 +36,6 @@ class Player {
         int _stone;
         int _level;
         std::vector<Champion *> _champion;
-        std::vector<success_t *> success;
+        std::vector<success_t> _success;
 };
 
