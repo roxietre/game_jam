@@ -23,10 +23,12 @@ class Player {
         void addTeam(Champion *chap) {_team.push_back(chap);}
 
         int getLevel() const {return _level;}
+        void setSuccess(std::string str) {_success.push_back(str);}
     private:
         int _stone;
         int _level;
         std::vector<Champion *> _champion;
         std::vector<Champion *> _team;
+        std::vector<std::string> _success;
 };
 

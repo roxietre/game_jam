@@ -145,21 +145,18 @@ void summonMenu(GashaSmash &core)
 {
     sf::Vector2u WindowSize = core.window->getSize();
 
-    sf::Text text("SINGLE SUMMON", core.font, 45);
+    sf::Text text("SINGLE SUMMON press I", core.font, 45);
     text.setFillColor(sf::Color::Black);
-    sf::Text text2("MULTI SUMMON", core.font, 45);
+    sf::Text text2("MULTI SUMMON press I", core.font, 45);
     text2.setFillColor(sf::Color::Black);
-    
+
     sf::RectangleShape rect1(sf::Vector2f((float) WindowSize.x * .35, 50));
     sf::RectangleShape rect2(sf::Vector2f((float) WindowSize.x * .35, 50));
-
+    core.window->clear();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MMENU;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-        invocation(core.player);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         show_champion(core.player);
-    core.window->clear();
 
     create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     create_sprite("Super Smash Bros Ultimate/Others/Frame.png", *core.window, (float) WindowSize.x / 2, (float) WindowSize.y, 0, 0);
@@ -176,6 +173,11 @@ void summonMenu(GashaSmash &core)
     core.window->draw(rect2);
     core.window->draw(text);
     core.window->draw(text2);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
+        invocation(core.player);
+        std::vector<Champion *>champ = core.player.getChampion();
+        create_sprite(champ[champ.size()- 1]->getSprit()[2], *core.window, 10, 15, 25, 25);
+    }
 }
 
 
