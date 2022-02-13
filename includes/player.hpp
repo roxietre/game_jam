@@ -11,6 +11,14 @@
 #include "champion.hpp"
 #include <vector>
 
+struct  success_s
+{
+    bool _is;
+    std::string _message;
+}success_t;
+
+
+
 class Player {
     public:
         Player(): _stone(5),_level(0) {}
@@ -25,9 +33,11 @@ class Player {
         std::vector<Champion *> _team;
         int getLevel() const {return _level;}
         void setLevel(int level) {_level = level;}
+        void setSuccess(std::string message) {success_t success; success._is = true; success._message = message; _success.push_back(success);}
     private:
         int _stone;
         int _level;
         std::vector<Champion *> _champion;
+        std::vector<success_t *> success;
 };
 
