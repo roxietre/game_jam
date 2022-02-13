@@ -17,7 +17,7 @@
 #include "champion.hpp"
 #include <algorithm>
 
-enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON};
+enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT};
 
 class GashaSmash {
     public:
@@ -43,7 +43,7 @@ void mainScreen(GashaSmash &core);
 void mainMenu(GashaSmash &core);
 void fightMenu(GashaSmash &core);
 void summonMenu(GashaSmash &core);
-
+void SelectMenu(GashaSmash &core);
 
 //Fighting part
 bool makeFight(GashaSmash &core, std::vector<Champion *> &enemy);
@@ -64,7 +64,8 @@ static const scene_t scene_tab[] = {
     {.scene = MSCREEN, mainScreen},
     {.scene = MMENU, mainMenu},
     {.scene = MFIGHT, fightMenu},
-    {.scene = MSUMMON, summonMenu}
+    {.scene = MSUMMON, summonMenu},
+    {.scene = MSELECT, SelectMenu}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);
