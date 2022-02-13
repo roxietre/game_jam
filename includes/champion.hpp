@@ -27,6 +27,9 @@ class Champion
         int getLife() {return _life;};
         int getSpecialAtt() {return _specialAttack;};
         int getSpecialDef() {return _specialArmor;};
+        std::vector<std::string> getSprit() {return _sprit;};
+        void setSprit(std::vector<std::string> sprit) {_sprit = sprit;};
+        void evolution_up(int att, int armor, int speed, int life, int spearm, int speatt) {_attack += att; _armor += armor; _speed += speed; _life += life; _specialArmor += spearm; _specialAttack += speatt;};
 
     protected:
         int _attack;
