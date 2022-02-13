@@ -17,10 +17,10 @@
 Champion::Champion(std::string name)
 {
 
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighters/")+name+std::string("/chara_0")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighters/")+name+std::string("/chara_1")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighters/")+name+std::string("/chara_4")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighters/")+name+std::string("/chara_6")+name+std::string("_00.png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_0_")+name+std::string("_00.png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_1_")+name+std::string("_00.png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_4_")+name+std::string("_00.png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_6_")+name+std::string("_00.png"));
 
     _attack = rand()%(10-5+1)+5;
     _armor = rand()%(10-5+1)+5;
