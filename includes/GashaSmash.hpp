@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <time.h>
 
-enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT, STARTF};
+enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT, STARTF, SUCCESS};
 
 class GashaSmash {
     public:
@@ -49,6 +49,7 @@ void mainMenu(GashaSmash &core);
 void fightMenu(GashaSmash &core);
 void summonMenu(GashaSmash &core);
 void SelectMenu(GashaSmash &core);
+void SuccessScreen(GashaSmash &core);
 
 //Fighting part
 void makeFight(GashaSmash &core);
@@ -58,6 +59,10 @@ void create_team(Player &player, int champ1, int champ2, int champ3);
 //Summon part
 void invocation(Player &player);
 void show_champion(Player &player);
+
+//Success part
+void set_success(Player &player);
+void verif_success(Player &player);
 
 //Struct and Scene tab
 typedef struct scene_s {
@@ -71,7 +76,8 @@ static const scene_t scene_tab[] = {
     {.scene = MFIGHT, fightMenu},
     {.scene = MSUMMON, summonMenu},
     {.scene = MSELECT, SelectMenu},
-    {.scene = STARTF, makeFight}
+    {.scene = STARTF, makeFight},
+    {.scene = SUCCESS, SuccessScreen}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);

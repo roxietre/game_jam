@@ -31,7 +31,9 @@ class Player {
         std::vector<Champion *> _team;
         int getLevel() const {return _level;}
         void setLevel(int level) {_level = level;}
-        void setSuccess(std::string message) {success_t success; success._is = true; success._message = message; _success.push_back(success);}
+        void setSuccess(std::string message) {success_t success; success._is = false; success._message = message; _success.push_back(success);}
+        void setTrueSuccess(int n) { _success[n -1]._is = true;};
+        std::vector<success_t> getSuccess() const {return _success;}
     private:
         int _stone;
         int _level;

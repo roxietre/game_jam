@@ -13,6 +13,7 @@ LIB_DIR	=	lib/sm_libc/
 
 SRC_FILES	= invocation.cpp\
 				FightingPart.cpp\
+				success.cpp \
 
 SRC_FILES_MAIN	=	GashaSmash.cpp\
 					\
