@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <time.h>
 
-enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT, STARTF, SUCCESS};
+enum scene_e {MSCREEN, MMENU, MLOOT, MFIGHT, MSUMMON, MSELECT, STARTF, SUCCESS, SSUMMON};
 
 class GashaSmash {
     public:
@@ -39,6 +39,7 @@ class GashaSmash {
 
         Player player;
         int actual_level;
+        int _summon;
     protected:
     private:
 };
@@ -50,6 +51,7 @@ void fightMenu(GashaSmash &core);
 void summonMenu(GashaSmash &core);
 void SelectMenu(GashaSmash &core);
 void SuccessScreen(GashaSmash &core);
+void SummonScreen(GashaSmash &core);
 
 //Fighting part
 void makeFight(GashaSmash &core);
@@ -77,7 +79,8 @@ static const scene_t scene_tab[] = {
     {.scene = MSUMMON, summonMenu},
     {.scene = MSELECT, SelectMenu},
     {.scene = STARTF, makeFight},
-    {.scene = SUCCESS, SuccessScreen}
+    {.scene = SUCCESS, SuccessScreen},
+    {.scene = SSUMMON, SummonScreen}
 };
 
 static const int TABSIZE = sizeof(scene_tab) / sizeof(scene_tab[0]);

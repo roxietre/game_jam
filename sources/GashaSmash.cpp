@@ -218,6 +218,30 @@ void fightMenu(GashaSmash &core)
     core.window->draw(textBoss);
 }
 
+void SummonScreen(GashaSmash &core)
+{
+    sf::Vector2u WindowSize = core.window->getSize();
+    std::vector<Champion *>champ = core.player.getChampion();
+    std::string name = champ[champ.size() - 1]->getName();
+
+    sf::Text text("You summon " + name + "!!!", core.font, 50);
+    text.setFillColor(sf::Color::Black);
+
+    core.window->clear();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        core.scene = MSUMMON;
+
+    sf::RectangleShape rect1(sf::Vector2f((float) WindowSize.x / 2, WindowSize.y / 2));
+    create_sprite("Super Smash Bros Ultimate/Others/Sky_Main_Menu.jpg", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+    create_sprite(champ[champ.size()- 1]->getSprit()[1], *core.window, WindowSize.x * .75, WindowSize.y * .75, WindowSize.x * .1, 0);
+    rect1.setFillColor(sf::Color::White);
+
+    rect1.setPosition(0, WindowSize.y * .78);
+    text.setPosition(WindowSize.x * .1, WindowSize.y * .85);
+    core.window->draw(rect1);
+    core.window->draw(text);
+}
+
 void summonMenu(GashaSmash &core)
 {
     sf::Vector2u WindowSize = core.window->getSize();
@@ -245,6 +269,18 @@ void summonMenu(GashaSmash &core)
     rect2.setPosition( 150 , (float) WindowSize.y - 100);
     text.setPosition(core.window->getSize().x * .10, core.window->getSize().y - 100);
     text2.setPosition(core.window->getSize().x * .60, core.window->getSize().y - 100);
+
+
+    sf::Vector2i m = core.mouse.getPosition(*core.window);
+    if (m.x >= rect2.getPosition().x && m.x <= rect2.getPosition().x + rect2.getSize().x && m.y >= rect2.getPosition().y && m.y <= rect2.getPosition().y + rect2.getSize().y)
+    {
+        rect2.setFillColor(sf::Color(220,220,220));
+        if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+            invocation(core.player);
+            core.scene = SSUMMON;
+        }
+    }
+
 
     core.window->draw(rect1);
     core.window->draw(rect2);

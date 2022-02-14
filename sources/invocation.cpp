@@ -67,6 +67,7 @@ void invocation(Player &player)
         int x = rand() % 10;
         Champion *chap = new Champion(name_champion[x]);
         player.setChampion(chap);
+        player.getChampion()[player.getChampion().size() - 1]->setName(name_champion[x]);
     }
 }
 

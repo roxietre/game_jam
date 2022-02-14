@@ -27,7 +27,10 @@ class Champion
         void evolution_up(int att, int armor, int speed, int life, int spearm, int speatt) {_attack += att; _armor += armor; _speed += speed; _life += life; _specialArmor += spearm; _specialAttack += speatt;};
         void setLife(int life) {_life = life;}
         int getMax() const {return _Maxhp;}
+        void setName(std::string name) {_name = name;}
+        std::string getName() const {return _name;}
     protected:
+        std::string _name;
         int _attack;
         int _armor;
         int _specialAttack;
