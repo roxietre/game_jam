@@ -19,7 +19,7 @@ typedef struct  success_s
 
 class Player {
     public:
-        Player(): _stone(5),_level(0) {}
+        Player(): _stone(10000),_level(0) {}
         ~Player() {}
         int getStone() {return _stone;}
         void setStone(int stone) {_stone += stone;}

@@ -16,11 +16,11 @@
 
 Champion::Champion(std::string name)
 {
-
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_0_")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_1_")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_4_")+name+std::string("_00.png"));
-    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_6_")+name+std::string("_00.png"));
+    int x = rand() % 7;
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_0_")+name+std::string("_0"+std::to_string(x)+".png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_1_")+name+std::string("_0"+std::to_string(x)+".png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_4_")+name+std::string("_0"+std::to_string(x)+".png"));
+    _sprit.push_back(std::string("Super Smash Bros Ultimate/Fighter Portraits/")+name+std::string("/chara_6_")+name+std::string("_0"+std::to_string(x)+".png"));
 
     _attack = rand()%(50-5+1)+50;
     _armor = rand()%(10-5+1)+5;
@@ -64,9 +64,20 @@ void invocation(Player &player)
     std::cout << std::to_string(player.getStone()) << " stones left" << std::endl;
     if (player.getStone() >= 1) {
         player.setStone( -1);
-        int x = rand() % 10;
+        int x = rand() % 16;
         Champion *chap = new Champion(name_champion[x]);
         player.setChampion(chap);
+    if (name_champion[x] == "trail")
+        player.getChampion()[player.getChampion().size() - 1]->setName("Sora");
+    else if (name_champion[x] ==  "pfushigisou")
+        player.getChampion()[player.getChampion().size() - 1]->setName("Epizare");
+    else if (name_champion[x] == "pzenigame")
+        player.getChampion()[player.getChampion().size() - 1]->setName("Carapute");
+    else if (name_champion[x] == "koopa")
+        player.getChampion()[player.getChampion().size() - 1]->setName("Bowser");
+    else if (name_champion[x] == "koopajr")
+        player.getChampion()[player.getChampion().size() - 1]->setName("Bowser Jr.");
+    else
         player.getChampion()[player.getChampion().size() - 1]->setName(name_champion[x]);
     }
 }

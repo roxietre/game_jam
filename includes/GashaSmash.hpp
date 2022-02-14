@@ -66,6 +66,9 @@ void show_champion(Player &player);
 void set_success(Player &player);
 void verif_success(Player &player);
 
+//create part
+void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y, int scale = 1);
+
 //Struct and Scene tab
 typedef struct scene_s {
     scene_e scene;

@@ -10,7 +10,7 @@
 #include <vector>
 #include "GashaSmash.hpp"
 
-void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y, int scale = 1 )
+void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y, int scale)
 {
     sf::Texture texture;
     sf::Sprite sprite;
@@ -65,6 +65,8 @@ void SelectMenu(GashaSmash &core)
     core.window->clear();
     create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
     
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        core.scene = MFIGHT;
 
     if (core.player.getChampion().size() < 3) {
         err.setPosition(WindowSize.x * .25, WindowSize.y * .45);
@@ -82,8 +84,6 @@ void SuccessScreen(GashaSmash &core)
     std::vector<success_t> success = core.player.getSuccess();
 
     core.window->clear();
-
-    create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MMENU;
@@ -230,7 +230,14 @@ void SummonScreen(GashaSmash &core)
     std::vector<Champion *>champ = core.player.getChampion();
     std::string name = champ[champ.size() - 1]->getName();
 
-    sf::Text text("You summon " + name + "!!!", core.font, 50);
+    if (name == "trail")
+        name = "Sora";
+    if (name == "pfushigisou")
+        name = "Epizare";
+    if (name == "pzenigame")
+        name = "carapute";
+
+    sf::Text text("You summon " + name + "!", core.font, 50);
     text.setFillColor(sf::Color::Black);
 
     core.window->clear();
