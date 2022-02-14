@@ -7,9 +7,10 @@
 
 
 #include <iostream>
+#include <vector>
 #include "GashaSmash.hpp"
 
-void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y )
+void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, float new_x, float new_y, int scale = 1 )
 {
     sf::Texture texture;
     sf::Sprite sprite;
@@ -23,10 +24,33 @@ void create_sprite(std::string img, sf::RenderWindow &window, float x, float y, 
     float ScaleY = y / (float) TextureSize.y; 
 
     texture.setSmooth(true);
-    sprite.setScale(ScaleX, ScaleY);
+    sprite.setScale(ScaleX * scale, ScaleY * scale);
     sprite.setTexture(texture);
     sprite.setPosition(new_x, new_y);
     window.draw(sprite);
+}
+
+void create_success(sf::RenderWindow &win, int n, std::vector<success_t> success, sf::Font font, bool is)
+{
+    sf::Vector2u WindowSize = win.getSize();
+    sf::RectangleShape r(sf::Vector2f(WindowSize.x, WindowSize.y / success.size()));
+
+    sf::RectangleShape r2(sf::Vector2f(WindowSize.x, (WindowSize.y / success.size()) * .9));
+    sf::Text t(success[n - 1]._message, font, 50);
+    
+    if (n == 0)
+        std::cout << success[0]._is << std::endl;
+    t.setFillColor(sf::Color::Black);
+    r.setFillColor(sf::Color::Black);
+    (is) ? r2.setFillColor(sf::Color::Green) : r2.setFillColor(sf::Color::Red);
+    
+    r.setPosition(0, (WindowSize.y / success.size() * (n - 1)) + 0.1);
+    r2.setPosition(0, (WindowSize.y / success.size() * (n - 1)) + 0.1);
+    t.setPosition(.25, WindowSize.y / success.size() * (n - 1));
+
+    win.draw(r);
+    win.draw(r2);
+    win.draw(t);
 }
 
 void SelectMenu(GashaSmash &core)
@@ -43,6 +67,30 @@ void SelectMenu(GashaSmash &core)
     core.player.setChampion(new Champion("trail"));
     choseTeam(core);
     core.scene = STARTF;
+}
+
+void SuccessScreen(GashaSmash &core) 
+{
+    verif_success(core.player);
+    sf::Vector2u WindowSize = core.window->getSize();
+    std::vector<success_t> success = core.player.getSuccess();
+
+    core.window->clear();
+
+    create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        core.scene = MMENU;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        std::cout << success[0]._is << std::endl;
+
+    create_success(*core.window, 1, success, core.font, success[0]._is);
+    create_success(*core.window, 2, success, core.font, success[1]._is);
+    create_success(*core.window, 3, success, core.font, success[2]._is);
+    create_success(*core.window, 4, success, core.font, success[3]._is);
+    create_success(*core.window, 5, success, core.font, success[4]._is);
+    create_success(*core.window, 6, success, core.font, success[5]._is);
+    create_success(*core.window, 7, success, core.font, success[6]._is);
 }
 
 
@@ -216,9 +264,12 @@ void mainMenu(GashaSmash &core)
     text.setFillColor(sf::Color::Black);
     sf::Text text2("BATTLE", core.font, 45);
     text2.setFillColor(sf::Color::Black);
+    sf::Text text3("SUCCESS", core.font, 45);
+    text3.setFillColor(sf::Color::Black);
     sf::Vector2u WindowSize = core.window->getSize();
     sf::RectangleShape rect1(sf::Vector2f((float) WindowSize.x * .35, 50));
     sf::RectangleShape rect2(sf::Vector2f((float) WindowSize.x * .35, 50));
+    sf::RectangleShape rect3(sf::Vector2f((float) WindowSize.x * .20, 50));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         core.scene = MSCREEN;
 
@@ -232,7 +283,8 @@ void mainMenu(GashaSmash &core)
     rect2.setPosition( 150 , (float) WindowSize.y - 100);
     text.setPosition(core.window->getSize().x * .20, core.window->getSize().y - 100);
     text2.setPosition(core.window->getSize().x * .73, core.window->getSize().y - 100);
-
+    rect3.setPosition(core.window->getSize().x * .40, 0);
+    text3.setPosition(core.window->getSize().x * .45, 0);
 
     sf::Vector2i m = core.mouse.getPosition(*core.window);
     if (m.x >= WindowSize.x/2 + 150 && m.x <= WindowSize.x/2 + 150 + WindowSize.x * .35 && m.y >= WindowSize.y - 100 && m.y <= WindowSize.y - 100 + 50) {
@@ -250,10 +302,19 @@ void mainMenu(GashaSmash &core)
         }
     }
 
+    if (m.x >= rect3.getPosition().x && m.x <= rect3.getPosition().x + rect3.getSize().x && m.y >= rect3.getPosition().y && m.y <= rect3.getPosition().y + rect3.getSize().y) 
+    {
+        if (core.mouse.isButtonPressed(sf::Mouse::Left)) {
+            core.scene = SUCCESS;
+        }
+    }
+
     core.window->draw(rect1);
     core.window->draw(rect2);
     core.window->draw(text);
     core.window->draw(text2);
+    core.window->draw(rect3);
+    core.window->draw(text3);
 }
 
 void mainScreen(GashaSmash &core)
@@ -276,6 +337,9 @@ int main()
 {
     GashaSmash core;
     srand(time(NULL));
+
+    set_success(core.player);
+    std::cout << core.player.getSuccess().size() << std::endl;
     while (core.window->isOpen())
     {
         while (core.window->pollEvent(core.event))
