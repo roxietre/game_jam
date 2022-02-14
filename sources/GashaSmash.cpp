@@ -55,18 +55,24 @@ void create_success(sf::RenderWindow &win, int n, std::vector<success_t> success
 
 void SelectMenu(GashaSmash &core)
 {
-    std::cout << core.actual_level << std::endl;
     sf::Vector2u WindowSize = core.window->getSize();
-    core.window->clear();
+    sf::Text err("You don't have enough champion", core.font, 50);
     core._enemy.erase(core._enemy.begin(), core._enemy.end());
     core.player._team.erase(core.player._team.begin(), core.player._team.end());
-    create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
 
-    core.player.setChampion(new Champion("link"));
-    core.player.setChampion(new Champion("sonic"));
-    core.player.setChampion(new Champion("trail"));
-    choseTeam(core);
-    core.scene = STARTF;
+    err.setFillColor(sf::Color::Black);    
+
+    core.window->clear();
+    create_sprite("Super Smash Bros Ultimate/Others/sky.png", *core.window, (float) WindowSize.x, (float) WindowSize.y, 0, 0);
+    
+
+    if (core.player.getChampion().size() < 3) {
+        err.setPosition(WindowSize.x * .25, WindowSize.y * .45);
+        core.window->draw(err);
+    } else {
+        choseTeam(core);
+        core.scene = STARTF;
+    }
 }
 
 void SuccessScreen(GashaSmash &core) 
@@ -246,7 +252,7 @@ void summonMenu(GashaSmash &core)
 {
     sf::Vector2u WindowSize = core.window->getSize();
 
-    sf::Text text("SINGLE SUMMON press I", core.font, 45);
+    sf::Text text("SINGLE SUMMON", core.font, 45);
     text.setFillColor(sf::Color::Black);
     sf::Text text2("MULTI SUMMON press I", core.font, 45);
     text2.setFillColor(sf::Color::Black);
